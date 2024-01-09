@@ -8,7 +8,7 @@ import (
   "fmt"
   "strconv"
   //"github.com/gofiber/template/html/v2"
-  )
+)
 
 
 func parsebool(str string) (bool) {
@@ -17,27 +17,27 @@ func parsebool(str string) (bool) {
 }
 
 
-
 var (
-APP_NAME string
-SERVER_HEADER string
-MULTI_CORE bool
+  APP_NAME string
+  SERVER_HEADER string
+  MULTI_CORE bool
+  Appconfig fiber.Config
 )
 
 func loadenv(){
   err := godotenv.Load(".env")
-if err!=nil{panic("set .env file")}
+  if err!=nil{
+    panic("set .env file")
+  }
   APP_NAME = os.Getenv("APP_NAME")
   SERVER_HEADER = os.Getenv("SERVER_HEADER")
   MULTI_CORE = parsebool(os.Getenv("MULTI_CORE"))
 }
 
 
-var Appconfig fiber.Config
 func init(){
   loadenv()
-//engine := html.New("./views", ".html")
-Appconfig = fiber.Config{
+  Appconfig = fiber.Config{
     AppName: APP_NAME,
     ServerHeader: SERVER_HEADER,
     Prefork: MULTI_CORE,
@@ -54,3 +54,4 @@ Appconfig = fiber.Config{
   }
   fmt.Println("config of app is finished")
 }
+//engine := html.New("./views", ".html")
