@@ -33,3 +33,26 @@ func ChangeNames(c *fiber.Ctx) error {
   return c.JSON(response)
 }
 
+func ChangePhone(c *fiber.Ctx) error {
+  var data map[string]string
+  if err := c.BodyParser(&data); err != nil {return err}
+  var phone string = data["phone"]
+  if len(phone) < 10{
+    response := fiber.Map{
+      "status":false,
+      "message":"please send a phone number",
+    }
+    return c.JSON(response)
+  }
+  db := database.GetDB()
+  var user models.User
+  user,_ = c.Locals("user").(models.User)
+  user.Phone = phone
+  db.Save(&user)
+  response := fiber.Map{
+    "status":true,
+    "message":"new phone number is set",
+    "user":user,
+  }
+  return c.JSON(response)
+}
