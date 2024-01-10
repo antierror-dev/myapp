@@ -1,15 +1,15 @@
 package user_controller
 
 import (
-"github.com/gofiber/fiber/v2"
-"myapp/models"
-"myapp/database"
+  "github.com/gofiber/fiber/v2"
+  "myapp/models"
+  "myapp/database"
 )
 
 func Home(c *fiber.Ctx) error {
-var user models.User
-user,_ = c.Locals("user").(models.User)
-return c.JSON(user)
+  var user models.User
+  user,_ = c.Locals("user").(models.User)
+  return c.JSON(user)
 }
 
 
