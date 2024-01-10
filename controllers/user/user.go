@@ -56,3 +56,28 @@ func ChangePhone(c *fiber.Ctx) error {
   }
   return c.JSON(response)
 }
+
+
+func ChangePassword(c *fiber.Ctx) error{
+  var data map[string]string
+  if err := c.BodyParser(&data); err != nil {return err}
+  var password string = data["password"]
+  if len(password) < 6{
+    response := fiber.Map{
+      "status":false,
+      "message":"please send a password",
+    }
+    return c.JSON(response)
+  }
+  db := database.GetDB()
+  var user models.User
+  user,_ = c.Locals("user").(models.User)
+  user.Password = password
+  db.Save(&user)
+  response := fiber.Map{
+    "status":true,
+    "message":"new password is set",
+    "user":user,
+  }
+  return c.JSON(response)
+}
