@@ -1,1 +1,4 @@
 data.db
+./data.db
+./*.db
+*.db
