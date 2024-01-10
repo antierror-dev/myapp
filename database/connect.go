@@ -4,7 +4,7 @@ import (
   "github.com/glebarez/sqlite"
   "gorm.io/gorm"
   "fmt"
-  //"myapp/models"
+  "myapp/models"
 )
 
 var db *gorm.DB
@@ -16,7 +16,7 @@ func init() {
     panic("failed to connect database")
   }
   fmt.Println("connected to db")
-  //db.AutoMigrate(&models.User{})
+  db.AutoMigrate(&models.User{})
   fmt.Println("fields of db is created")
 }
 
