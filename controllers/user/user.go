@@ -6,6 +6,13 @@ import (
 "myapp/database"
 )
 
+func Home(c *fiber.Ctx) error {
+var user models.User
+user,_ = c.Locals("user").(models.User)
+return c.JSON(user)
+}
+
+
 func ChangeNames(c *fiber.Ctx) error {
   var data map[string]string
   if err := c.BodyParser(&data); err != nil {return err}
