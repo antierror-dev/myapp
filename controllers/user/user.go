@@ -81,3 +81,39 @@ func ChangePassword(c *fiber.Ctx) error{
   }
   return c.JSON(response)
 }
+
+
+func ChangeMail(c *fiber.Ctx) error {
+  var data map[string]string
+  if err := c.BodyParser(&data); err != nil {return err}
+  var email string = data["email"]
+  if len(email) < 5{
+    response := fiber.Map{
+      "status":false,
+      "message":"please send a email",
+    }
+    return c.JSON(response)
+  }
+  
+  db := database.GetDB()
+  var finduser models.User
+  db.Where("email = ?",email).First(&finduser)
+  if finduser.ID != 0{
+  response := fiber.Map{
+    "status":false,
+    "message":"email already use",
+    }
+  return c.Status(fiber.StatusConflict).JSON(response)
+  }
+  
+  var user models.User
+  user,_ = c.Locals("user").(models.User)
+  user.Email = email
+  db.Save(&user)
+  response := fiber.Map{
+    "status":true,
+    "message":"new email is set",
+    "user":user,
+  }
+  return c.JSON(response)
+}
