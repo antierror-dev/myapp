@@ -21,7 +21,9 @@ var (
   APP_NAME string
   SERVER_HEADER string
   MULTI_CORE bool
+  APP_PORT string
   Appconfig fiber.Config
+  APP_RUN string
 )
 
 func loadenv(){
@@ -32,6 +34,8 @@ func loadenv(){
   APP_NAME = os.Getenv("APP_NAME")
   SERVER_HEADER = os.Getenv("SERVER_HEADER")
   MULTI_CORE = parsebool(os.Getenv("MULTI_CORE"))
+  APP_PORT = os.Getenv("APP_PORT")
+  APP_RUN = fmt.Sprintf("0.0.0.0:%s",APP_PORT)
 }
 
 

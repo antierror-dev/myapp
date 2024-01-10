@@ -14,5 +14,5 @@ func main(){
   middleware.Setup(app)
   routes.SetupRoutes(app)
   fmt.Println("app is ready to run...")
-  log.Fatal(app.Listen(":3000"))
+  log.Fatal(app.Listen(configs.APP_RUN))
 }
