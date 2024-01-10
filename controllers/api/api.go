@@ -1,9 +1,9 @@
 package api_controller
 
 import (
-"github.com/gofiber/fiber/v2"
+  "github.com/gofiber/fiber/v2"
 )
 
 func Home(c *fiber.Ctx) error {
-return c.SendString("TestApi")
+  return c.SendString("Api home")
 }
