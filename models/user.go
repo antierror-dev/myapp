@@ -11,6 +11,6 @@ type User struct {
   Email    string `json:"email" gorm:"unique;not null;"`
   Phone    string `json:"-" gorm:"unique;default:null;"`
   Password string `json:"-"`
-  Token    string `json:"-"`
+  Token    string `json:"token"`
   Expires time.Time `json:"expires"`
 }
